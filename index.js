@@ -22,17 +22,7 @@ const displayBooks = () => {
   for (let i = 0; i < myLibrary.length; i++) {
     const book = document.createElement("div");
     book.classList.add("card");
-    // const titleDiv = document.createElement("div");
-    // const pagesDiv = document.createElement("div");
-    // const authorDiv = document.createElement("div");
-
-    // titleDiv.classList.add("title");
-    // authorDiv.classList.add("author");
-    // pagesDiv.classList.add("pages");
-
-    // book.appendChild(titleDiv);
-    // book.appendChild(authorDiv);
-    // book.appendChild(pagesDiv);
+    book.setAttribute('data-attribute', i);
 
     book.innerHTML = 
       `<div class="title">${myLibrary[i].title}</div>
@@ -42,5 +32,39 @@ const displayBooks = () => {
     libraryDiv.appendChild(book);
   }
 }
+
+const bookForm = document.querySelector("#book-form")
+const showForm = document.querySelector('dialog + button');
+const formModal = document.querySelector('dialog');
+const closeFormBtn = document.querySelector('.close-form');
+const addBookBtn = document.querySelector('.add-book-btn');
+
+function closeForm() {
+  bookForm.reset();
+  formModal.close();
+}
+
+showForm.addEventListener('click', () => {
+  formModal.showModal();
+});
+
+addBookBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const newAuthor = document.querySelector("#new-author").value;
+  const newTitle = document.querySelector("#new-title").value;
+  const newPages = document.querySelector("#new-pages").value;
+
+  const newBook = new Book(newAuthor, newTitle, newPages);
+  myLibrary.push(newBook);
+
+  displayBooks();
+
+  closeForm();
+})
+
+closeFormBtn.addEventListener('click', () => {
+  closeForm();
+});
 
 displayBooks();
