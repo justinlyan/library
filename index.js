@@ -55,12 +55,16 @@ addBookBtn.addEventListener('click', (event) => {
   const newTitle = document.querySelector("#new-title").value;
   const newPages = document.querySelector("#new-pages").value;
 
-  const newBook = new Book(newAuthor, newTitle, newPages);
-  myLibrary.push(newBook);
+  if (newAuthor && newTitle && newPages) {
+    const newBook = new Book(newAuthor, newTitle, newPages);
+    myLibrary.push(newBook);
 
-  displayBooks();
+    displayBooks();
 
-  closeForm();
+    closeForm();
+  } else {
+    
+  }
 })
 
 closeFormBtn.addEventListener('click', () => {
