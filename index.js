@@ -9,10 +9,15 @@ const formModal = document.querySelector('dialog');
 const closeFormBtn = document.querySelector('.close-form');
 const addBookBtn = document.querySelector('.add-book-btn');
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.read = false;
+
+  function toggleRead() {
+    this.read = !this.read;
+  }
 }
 
 const addBookToLibrary = (title, author, pages) => {
