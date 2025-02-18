@@ -2,7 +2,36 @@
   margin: 0;
 }
 
-.library {
+header {
+  background-color: rgb(24, 82, 168);
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+  color: rgb(200, 195, 195);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-container {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -11,22 +40,22 @@
 }
 
 .card {
+  background-color: rgb(51, 117, 214);
   border: 1px solid black;
-  position: relative;
-  height: 150px;
-}
-
-.book-info {
   display: flex;
-  height: 100%;
   flex-direction: column;
-  justify-content: center;
+  padding: 20px;
+  border-radius: 15px;
+  gap: 10px;
+  box-shadow: 0 0.1rem 0.5rem rgb(175, 175, 175);
 }
 
 .title,
 .author,
 .pages {
+  color: rgb(44, 44, 44);
   text-align: center;
+  font-weight: 800;
 }
 
 .title {
@@ -42,17 +71,39 @@
 
 }
 
+.read {
+  background-color: rgb(23, 203, 23);
+}
+
+.not-read {
+  background-color: rgb(145, 142, 142);
+}
+
+.toggle-read, 
 .remove-book-btn {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.remove-book-btn {
+  background-color: rgb(239, 57, 57);
+}
+
+button {
+  cursor: pointer;
 }
 
 .show-form-modal {
-
+  padding: 20px 30px;
+  font-size: 1.4rem;
+  margin: 20px 0;
+  border: 5px solid rgb(24, 82, 168);
+  border-radius: 10px;
+  color: rgb(24, 82, 168);
 }
 
 .show-form-modal:hover {
-  cursor: pointer;
-  background-color: grey;
+  background-color: rgb(24, 82, 168);
+  color: white;
 }

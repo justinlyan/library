@@ -1,10 +1,10 @@
 const myLibrary = [new Book("The Hobbit", "J.R.R. Tolkien,", 290), new Book("A Game of Thrones", "George R.R. Martin", 980)];
 
-const libraryDiv = document.querySelector('.library');
+const bookContainer = document.querySelector('.book-container');
 
 // New Book Form global variables
 const bookForm = document.querySelector("#book-form")
-const showForm = document.querySelector('dialog + button');
+const showForm = document.querySelector('.show-form-modal');
 const formModal = document.querySelector('dialog');
 const closeFormBtn = document.querySelector('.close-form');
 const addBookBtn = document.querySelector('.add-book-btn');
@@ -15,47 +15,32 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = false;
 
-  function toggleRead() {
+  this.toggleRead = function() {
     this.read = !this.read;
   }
 }
 
-const addBookToLibrary = (title, author, pages) => {
-  // take params, create a book then store it in the array
-  const newBook = new Book(title, author, pages);
-  myLibrary.push(newBook);
-}
-
-const removeBookFromLibraryBtns = () => {
-  const removeBookBtns = document.querySelectorAll('.remove-book-btn');
-  removeBookBtns.forEach((element) => {
-    element.addEventListener('click', () => {
-      const bookIndex = element.getAttribute("bookIndex")
-      myLibrary.splice(bookIndex, 1);
-      displayBooks();
-    })
-  })
-}
-
 const displayBooks = () => {
-  libraryDiv.innerHTML = "";
-  for (let i = 0; i < myLibrary.length; i++) {
-    const book = document.createElement("div");
-    book.classList.add("card");
-    book.setAttribute('data-attribute', i);
+  bookContainer.innerHTML = "";
+  myLibrary.forEach((book, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.index = index;
 
-    book.innerHTML = 
-      `<div class="book-info">
-        <div class="title">${myLibrary[i].title}</div>
-        <div class="author">by ${myLibrary[i].author}</div>
-        <div class="pages">${myLibrary[i].pages} pages</div>
-      </div>
-       <button class="remove-book-btn" bookIndex=${i}>Remove Book</button>`;
+    const readBtnClass = book.read ? "read" : "not-read";
+    const readBtnText = book.read ? "Read" : "Not Read";
 
-    libraryDiv.appendChild(book);
-  }
+    card.innerHTML = 
+      `
+      <div class="title">${book.title}</div>
+      <div class="author">by ${book.author}</div>
+      <div class="pages">${book.pages} pages</div>
+      <button class="${readBtnClass} toggle-read" data-index=${index}>${readBtnText}</button>
+      <button class="remove-book-btn" data-index=${index}>Remove Book</button>
+      `;
 
-  removeBookFromLibraryBtns();
+    bookContainer.appendChild(card);
+  })
 }
 
 const closeForm = () => {
@@ -65,7 +50,6 @@ const closeForm = () => {
 
 // Event Listeners
 showForm.addEventListener('click', () => {
-  console.log("clicked");
   formModal.showModal();
 });
 
@@ -77,7 +61,7 @@ addBookBtn.addEventListener('click', (event) => {
   const newPages = document.querySelector("#new-pages").value;
 
   if (newAuthor && newTitle && newPages) {
-    const newBook = new Book(newAuthor, newTitle, newPages);
+    const newBook = new Book(newAuthor, newTitle, newPages, false);
     myLibrary.push(newBook);
 
     displayBooks();
@@ -93,3 +77,19 @@ closeFormBtn.addEventListener('click', () => {
 });
 
 displayBooks();
+
+
+bookContainer.addEventListener("click", (e) => {
+  const target = e.target;
+  const index = target.dataset.index;
+
+  if (target.classList.contains('remove-book-btn')) {
+    myLibrary.splice(index, 1);
+    displayBooks();
+  }
+
+  if (target.classList.contains('toggle-read')) {
+    myLibrary[index].toggleRead();
+    displayBooks();
+  }  
+});
