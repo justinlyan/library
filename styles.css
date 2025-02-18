@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+}
+
+.library {
+  width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.card {
+  border: 1px solid black;
+  position: relative;
+  height: 150px;
+}
+
+.book-info {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title,
+.author,
+.pages {
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.author {
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+.pages {
+
+}
+
+.remove-book-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.show-form-modal {
+
+}
+
+.show-form-modal:hover {
+  cursor: pointer;
+  background-color: grey;
+}
